@@ -1,6 +1,6 @@
-class RhodyAttractions::X
+class RhodyAttractions::Attraction
   
   def initialize
-    puts 'hi'
+    binding.pry
   end
 end
