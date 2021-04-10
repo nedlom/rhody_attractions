@@ -16,6 +16,16 @@ class RhodyAttractions::Attraction
     self.class.all << self
   end
   
+  def self.towns
+    self.all.map {|a| a.town[/[^,]+/]}.uniq
+  end
+  
+  def self.attractions_by_town(town)
+    self.all.select do |a|
+      a.town[/[^,]+/] == town
+    end
+  end
+  
   def self.find_by_index(index)
     self.all[index - 1]
   end
