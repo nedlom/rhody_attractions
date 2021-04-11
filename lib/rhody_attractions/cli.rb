@@ -24,16 +24,28 @@ class RhodyAttractions::CLI
   end
     
   def select_attraction
-    x = gets.strip.to_i
-    a = RhodyAttractions::Attraction.find_by_index(x)
-    puts "#{"-" * 18}#{a.name}#{"-" * 18}" #max length is 77
-    puts "#{a.street_address}, #{a.town}"
-    puts a.website_url if a.website_url
-    puts ""
-    a.long_description.scan(/(.{1,77})(?:\s|$)/m).each do |b|
-        puts b[0].strip
+    while true
+      input = gets.strip.to_i
+      attraction = RhodyAttractions::Attraction.find_by_index(input)
+      header = "#{"-" * 18}#{attraction.name}#{"-" * 18}"
+      puts header #max length is 77
+      puts ""
+      # binding.pry
+      attraction.long_description.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
+          puts b[0].strip
       end
-    places_nearby(a)
+      
+      if attraction.website_url
+        puts ""
+        puts "Website: #{attraction.website_url}" 
+      end
+      
+      puts ""
+      puts "Address: #{attraction.street_address}, #{attraction.town}"
+      places_nearby(attraction)
+      puts ""
+      select_attraction
+    end
   end
   
   def places_nearby(x)
