@@ -8,26 +8,8 @@ class RhodyAttractions::Attraction
     @@all
   end
   
-  def initialize(name, town, short_description, url)
-    @name = name
-    @town = town
-    @short_description = short_description
-    @url = url
-    self.class.all << self
-  end
-  
-  def self.towns
-    self.all.map {|a| a.town[/[^,]+/]}.uniq
-  end
-  
-  def self.attractions_by_town(town)
-    self.all.select do |a|
-      a.town[/[^,]+/] == town
-    end
-  end
-  
-  def self.find_by_index(index)
-    self.all[index - 1]
+  def self.find_by_index(input)
+    self.all[input - 1]
   end
   
   def self.find_by_name(name)
@@ -36,12 +18,28 @@ class RhodyAttractions::Attraction
     end
   end
   
+  def self.max_name
+    self.all.map do |a|
+      a.name
+    end
+  end
+  
+  def initialize(name, town, short_description, url)
+    @name = name
+    @town = town
+    @short_description = short_description
+    @url = url
+    self.class.all << self
+  end
+  
   def street_address
     self.street_address = doc.css("address div").children.first.text
   end
   
   def website_url
-    self.website_url = doc.css(".DDPageSiderail__website a")[0]['href']
+    if !doc.css(".DDPageSiderail__website a").empty?
+      self.website_url = doc.css(".DDPageSiderail__website a")[0]['href']
+    end
   end
   
   def places_nearby
