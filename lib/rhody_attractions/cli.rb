@@ -50,6 +50,14 @@ class RhodyAttractions::CLI
     end
   end
   
+  # def places_nearby(x)
+  #   puts ""
+  #   puts "Some places nearby:"
+  #   x.places_nearby.each.with_index(1) do |a, i|
+  #     puts "\t #{i}. #{a.name}"
+  #   end
+  # end
+  
   def places_nearby(x)
     puts ""
     puts "Some places nearby:"

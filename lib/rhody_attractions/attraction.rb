@@ -42,6 +42,13 @@ class RhodyAttractions::Attraction
     end
   end
   
+  # def places_nearby
+  #   doc.css(".DDPageSiderailRecirc__item-text").map do |a|
+  #     name = a.children[1].text
+  #     self.class.find_by_name(name)
+  #   end.compact
+  # end
+  
   def places_nearby
     self.places_nearby = doc.css(".DDPageSiderailRecirc__item-text")
   end
