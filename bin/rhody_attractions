@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require_relative "../lib/rhody_attractions.rb"
 
-RhodyAttractions::CLI.new.greeting
+RhodyAttractions::CLI.new.start
