@@ -1,14 +1,12 @@
 class RhodyAttractions::CLI
-  
-  def start
-    greeting
-    list_attractions
-    select_attraction
-  end
     
-  def greeting
+  def start
     puts "Howdy!\n\n"
     RhodyAttractions::Scraper.new.make_page
+    puts "Printing list\n\n"
+    sleep(2)
+    list_attractions
+    select_attraction
   end
     
   #41 is length of longest name
@@ -46,7 +44,6 @@ class RhodyAttractions::CLI
     end
     
     places_nearby(attraction)
-    puts ""
   end
   
   def places_nearby(x)
@@ -72,9 +69,13 @@ class RhodyAttractions::CLI
     print "Would you like to a different attraction? (y/n): "
     x = gets.strip
     if x == "y"
+      puts ""
+      puts "Printing list\n\n"
+      sleep(2)
+      list_attractions
       select_attraction
     else
-      puts "\nBuh-bye now!"
+      puts "\nBuh-bye now!\n\n"
     end
   end
   
