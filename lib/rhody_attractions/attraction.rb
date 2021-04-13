@@ -1,6 +1,6 @@
 class RhodyAttractions::Attraction
   
-  attr_accessor :name, :street_address, :town, :short_description, :long_description, :url, :website_url, :places_nearby
+  attr_accessor :name, :street_address, :town, :short_description, :long_description, :url, :website_url, :places_nearby, :know_before_you_go
   
   @@all = []
   
@@ -55,6 +55,11 @@ class RhodyAttractions::Attraction
   
   def long_description
     self.long_description = doc.css("#place-body p").text
+  end
+  
+  def know_before_you_go
+    binding.pry
+    self.know_before_you_go = doc.css(".DDP__direction-copy p").text
   end
   
   def doc
