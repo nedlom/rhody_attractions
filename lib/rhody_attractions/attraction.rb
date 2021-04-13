@@ -63,7 +63,7 @@ class RhodyAttractions::Attraction
     header = "#{self.class.all.index(self) + 1}. #{self.name} - #{self.town}"
     puts header
     puts "#{"-" * header.length}"
-    if size == "short"
+    if 
       self.short_description.scan(/(.{1,55})(?:\s|$)/m).each do |b|
         puts b[0].strip
       end
