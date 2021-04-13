@@ -9,24 +9,15 @@ class RhodyAttractions::CLI
   def greeting
     puts "Howdy!"
     RhodyAttractions::Scraper.new.make_page
+    binding.pry
   end
     
   #41 is length of longest name
   #40 is it's index
-  # def list_attractions
-  #   RhodyAttractions::Attraction.all.each.with_index(1) do |a, i|
-  #     x = "#{i}. #{a.name} - #{a.town}"
-  #     puts x
-  #     a.short_description.scan(/(.{1,#{x.length}})(?:\s|$)/m).each do |b|
-  #       puts "#{" " * i.to_s.length}  #{b[0]}"
-  #     end
-  #     puts ""
-  #   end
-  # end
   
   def list_attractions
     RhodyAttractions::Attraction.all.each do |attraction|
-      print_description(attraction, attraction.short_description)
+      attraction.print_description("short")
       puts ""
     end
   end
@@ -40,8 +31,7 @@ class RhodyAttractions::CLI
     
   def format_attraction(attraction)
     puts ""
-    print_description(attraction, attraction.long_description)
-    
+    attraction.print_description("long")
     if attraction.website_url
       puts ""
       puts "Website: #{attraction.website_url}" 
@@ -65,7 +55,7 @@ class RhodyAttractions::CLI
       puts "\t #{i}. #{a.name}"
     end
     puts ""
-    print "Would you like to see one of these? Enter y or n: "
+    print "Would you like to see one of these? (y/n): "
     a = gets.strip
     if a == "y"
       print "Enter number: "
@@ -76,9 +66,8 @@ class RhodyAttractions::CLI
   end
   
   def last_function
-    puts
-    puts "Would you like to a different attraction?"
-    print "Enter y or n: "
+    puts ""
+    print "Would you like to a different attraction? (y/n): "
     x = gets.strip
     if x == "y"
       select_attraction
@@ -87,12 +76,4 @@ class RhodyAttractions::CLI
     end
   end
   
-  def print_description(attraction, att_desc)
-    header = "#{RhodyAttractions::Attraction.all.index(attraction) + 1}. #{attraction.name} - #{attraction.town}"
-    puts header
-    puts "#{"-" * header.length}"
-    att_desc.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
-        puts b[0].strip
-      end
-  end
 end

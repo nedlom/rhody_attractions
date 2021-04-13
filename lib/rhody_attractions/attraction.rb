@@ -49,10 +49,6 @@ class RhodyAttractions::Attraction
     end.compact
   end
   
-  # def places_nearby
-  #   self.places_nearby = doc.css(".DDPageSiderailRecirc__item-text")
-  # end
-  
   def long_description
     self.long_description = doc.css("#place-body p").text
   end
@@ -64,15 +60,18 @@ class RhodyAttractions::Attraction
   end
   
   def print_description(size)
-    
-    header = "#{RhodyAttractions::Attraction.all.index(attraction) + 1}. #{attraction.name} - #{attraction.town}"
+    header = "#{self.class.all.index(self) + 1}. #{self.name} - #{self.town}"
     puts header
     puts "#{"-" * header.length}"
-    att_desc.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
+    if size == "short"
+      self.short_description.scan(/(.{1,55})(?:\s|$)/m).each do |b|
         puts b[0].strip
       end
-    if size = "short"
-      
+    else
+      self.long_description.scan(/(.{1,55})(?:\s|$)/m).each do |b|
+        puts b[0].strip
+      end
+    end
   end
   
   def doc
