@@ -58,8 +58,9 @@ class RhodyAttractions::Attraction
   end
   
   def know_before_you_go
-    binding.pry
-    self.know_before_you_go = doc.css(".DDP__direction-copy p").text
+    if !doc.css(".DDP__direction-copy").empty?
+      self.know_before_you_go = doc.css(".DDP__direction-copy p").text
+    end
   end
   
   def doc

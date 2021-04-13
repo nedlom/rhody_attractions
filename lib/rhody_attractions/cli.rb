@@ -9,7 +9,6 @@ class RhodyAttractions::CLI
   def greeting
     puts "Howdy!"
     RhodyAttractions::Scraper.new.make_page
-    # binding.pry
   end
     
   #41 is length of longest name
@@ -46,13 +45,13 @@ class RhodyAttractions::CLI
       puts "Website: #{attraction.website_url}" 
     end
     
+    puts ""
+    puts "Address: #{attraction.street_address}, #{attraction.town}"
+    
     if attraction.know_before_you_go
       puts ""
       puts "Know Before You Go: #{attraction.know_before_you_go}"
     end
-    
-    puts ""
-    puts "Address: #{attraction.street_address}, #{attraction.town}"
     places_nearby(attraction)
     puts ""
   end
