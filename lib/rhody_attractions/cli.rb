@@ -25,13 +25,8 @@ class RhodyAttractions::CLI
   # end
   
   def list_attractions
-    RhodyAttractions::Attraction.all.each.with_index(1) do |attraction, i|
-      header = "#{i}. #{attraction.name} - #{attraction.town}"
-      puts header
-      puts "#{"-" * header.length}"
-      attraction.short_description.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
-        puts b[0].strip
-      end
+    RhodyAttractions::Attraction.all.each do |attraction|
+      print_description(attraction, attraction.short_description)
       puts ""
     end
   end
@@ -45,12 +40,7 @@ class RhodyAttractions::CLI
     
   def format_attraction(attraction)
     puts ""
-    header = "#{"-" * 18}#{attraction.name}#{"-" * 18}"
-    puts header #max length is 77
-    puts ""
-    attraction.long_description.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
-        puts b[0]
-    end
+    print_description(attraction, attraction.long_description)
     
     if attraction.website_url
       puts ""
@@ -97,8 +87,11 @@ class RhodyAttractions::CLI
     end
   end
   
-  def print_description(description, line_length)
-    description.scan(/(.{1,#{line_length}})(?:\s|$)/m).each do |b|
+  def print_description(attraction, att_desc)
+    header = "#{RhodyAttractions::Attraction.all.index(attraction) + 1}. #{attraction.name} - #{attraction.town}"
+    puts header
+    puts "#{"-" * header.length}"
+    att_desc.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
         puts b[0].strip
       end
   end

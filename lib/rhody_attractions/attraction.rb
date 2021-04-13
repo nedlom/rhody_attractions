@@ -63,6 +63,18 @@ class RhodyAttractions::Attraction
     end
   end
   
+  def print_description(size)
+    
+    header = "#{RhodyAttractions::Attraction.all.index(attraction) + 1}. #{attraction.name} - #{attraction.town}"
+    puts header
+    puts "#{"-" * header.length}"
+    att_desc.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
+        puts b[0].strip
+      end
+    if size = "short"
+      
+  end
+  
   def doc
     Nokogiri::HTML(open(url))
   end
