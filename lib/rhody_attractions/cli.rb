@@ -65,8 +65,7 @@ class RhodyAttractions::CLI
   end
   
   def last_function
-    puts ""
-    print "Would you like to a different attraction? (y/n): "
+    print "\nWould you like to a different attraction? (y/n): "
     x = gets.strip
     if x == "y"
       puts ""
@@ -77,6 +76,13 @@ class RhodyAttractions::CLI
     else
       puts "\nBuh-bye now!\n\n"
     end
+  end
+  
+  def valid_input1?
+    
+  end
+  
+  def validate_input2?
   end
   
 end
