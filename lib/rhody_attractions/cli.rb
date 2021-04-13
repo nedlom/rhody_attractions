@@ -13,12 +13,24 @@ class RhodyAttractions::CLI
     
   #41 is length of longest name
   #40 is it's index
+  # def list_attractions
+  #   RhodyAttractions::Attraction.all.each.with_index(1) do |a, i|
+  #     x = "#{i}. #{a.name} - #{a.town}"
+  #     puts x
+  #     a.short_description.scan(/(.{1,#{x.length}})(?:\s|$)/m).each do |b|
+  #       puts "#{" " * i.to_s.length}  #{b[0]}"
+  #     end
+  #     puts ""
+  #   end
+  # end
+  
   def list_attractions
-    RhodyAttractions::Attraction.all.each.with_index(1) do |a, i|
-      x = "#{i}. #{a.name} - #{a.town}"
-      puts x
-      a.short_description.scan(/(.{1,#{x.length}})(?:\s|$)/m).each do |b|
-        puts "#{" " * i.to_s.length}  #{b[0]}"
+    RhodyAttractions::Attraction.all.each.with_index(1) do |attraction, i|
+      header = "#{i}. #{attraction.name} - #{attraction.town}"
+      puts header
+      puts "#{"-" * header.length}"
+      attraction.short_description.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
+        puts b[0].strip
       end
       puts ""
     end
@@ -85,12 +97,9 @@ class RhodyAttractions::CLI
     end
   end
   
-  def description_printer
-    attraction.long_description.scan(/(.{1,#{header.length}})(?:\s|$)/m).each do |b|
-          puts b[0].strip
-      end
-    a.short_description.scan(/(.{1,50})(?:\s|$)/m).each do |b|
-        puts "#{" " * i.to_s.length}  #{b[0].strip}"
+  def print_description(description, line_length)
+    description.scan(/(.{1,#{line_length}})(?:\s|$)/m).each do |b|
+        puts b[0].strip
       end
   end
 end
